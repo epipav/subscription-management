@@ -1,0 +1,98 @@
+version: '3'
+#php artisan test &&
+services:
+    subscription-management:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: > 
+            sh -c "
+                   php artisan serve --host=0.0.0.0"  
+        image: anilbostanci/subscription-management:0.1.1
+        ports:
+            - "8000:8000"
+        working_dir: /subscription-management
+        networks:
+          - subs-net
+        depends_on: 
+          - "mysql_db"
+
+    subscription-management-mock-api:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: > 
+            sh -c "
+                   php artisan serve --host=0.0.0.0 --port=8200"  
+        image: anilbostanci/subscription-management:0.1.1
+        ports:
+            - "8200:8200"
+        working_dir: /subscription-management
+        networks:
+          - subs-net
+        depends_on: 
+          - "mysql_db"
+
+    webhook-receiver:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: > 
+            sh -c "
+                   php artisan serve --host=0.0.0.0 --port=8400"  
+        image: anilbostanci/subscription-management:0.1.1
+        ports:
+            - "8400:8400"
+        working_dir: /subscription-management
+        networks:
+          - subs-net
+        depends_on: 
+          - "mysql_db"
+
+    subscription-management-scheduler:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: > 
+            sh -c "
+                   php artisan schedule:work"  
+        image: anilbostanci/subscription-management:0.1.1
+        working_dir: /subscription-management
+        networks:
+          - subs-net
+        depends_on: 
+          - "mysql_db"
+
+    subscription-management-unit-tests:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: > 
+            sh -c "
+                   php artisan test"  
+        image: anilbostanci/subscription-management:0.1.1
+        working_dir: /subscription-management
+        networks:
+          - subs-net
+        depends_on: 
+          - "mysql_db"
+          - "subscription-management"
+          - "subscription-management-mock-api"
+
+    mysql_db:
+        image: 'mysql:5.7'
+        ports:
+            - '3320:3306'
+        volumes:
+            - subsdb:/var/lib/mysql 
+        environment:
+            - MYSQL_USER=anil
+            - MYSQL_PASSWORD=anil
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=subs_management_db
+        networks:
+          - subs-net
+volumes:
+  subsdb:
+networks:
+  subs-net:
