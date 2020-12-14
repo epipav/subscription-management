@@ -1,23 +1,23 @@
 Butun proje docker containerlari icindedir.
-Projeyi ayaga kaldirmak icin kodu cekip, docker-compose up yapmak yeterli.
+Projeyi ayaga kaldirmak icin kodu cekip, <b>docker-compose up</b> yapmak yeterli.
 Containerlar:
 
-subscription-management:
+<b>subscription-management:</b>
 purchase,register,check_subs endpointlerinin oldugu api
 
-subscription-management-mock-api:
+<b>subscription-management-mock-api:</b>
 gonderilen receipt'e gore sonuc donen mock(Google/iOS) api.
 
-subscription-management-scheduler:
+<b>subscription-management-scheduler:</b>
 artisan schedule:work'u calistiran ve dakikalik calisan kodu barindiran scheduler.
 
-subscription-management-unit-tests:
+<b>subscription-management-unit-tests:</b>
 containerlar ayaga kalktiktan sonra gerekli butun unit testleri calistirip kendini olduren container.
 
-mysql_db:
+<b>mysql_db:</b>
 butun containerlarin kullandigi db
 
-webhook-receiver:
+<b>webhook-receiver:</b>
 renewed, started, cancelled callbacklerinin gonderildigi webhook endpointi(calistigini anlamak adina test icin).
 
 Butun containerlar image'i, farkli portlardan farkli endpointleri kullaniyor.
