@@ -20,4 +20,4 @@ butun containerlarin kullandigi db
 <b>webhook-receiver:</b>
 renewed, started, cancelled callbacklerinin gonderildigi webhook endpointi(calistigini anlamak adina test icin).
 
-Butun containerlar image'i, farkli portlardan farkli endpointleri kullaniyor.
+Butun containerlar(sql haric) ayni image'i, farkli portlardan farkli endpointleri kullaniyor.
