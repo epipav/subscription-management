@@ -21,3 +21,5 @@ butun containerlarin kullandigi db
 renewed, started, cancelled callbacklerinin gonderildigi webhook endpointi(calistigini anlamak adina test icin).
 
 Butun containerlar(sql haric) ayni image'i, farkli portlardan farkli endpointleri kullaniyor.
+
+*testler run edildiginde db ready olmayabilir, bunun ile ilgili check koymadim, eger testler fail ederse, docker-compose down, tekrar up yapabilirsiniz.*
